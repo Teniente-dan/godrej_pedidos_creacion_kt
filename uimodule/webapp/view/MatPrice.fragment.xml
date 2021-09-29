@@ -1,0 +1,29 @@
+<core:FragmentDefinition xmlns:form="sap.ui.layout.form"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <Dialog id="MatPrice" title="{i18n>preciosTitulo} {matPrice>/Matnr}:" contentWidth="{= ${device>/system/phone}?'100%':'auto'}" type="Message" state="Information" afterClose="onHandlePricesClose($event, 'after')">
+        <content>
+            <form:SimpleForm id="SimpleForm1" editable="false" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="3" labelSpanM="4" labelSpanS="6" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="4" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="false">
+                <form:content>
+                    <core:Title text="{i18n>fragPriceTitle1}"/>
+                    <Label text="{i18n>fragPriceEtiqueta1}" visible="{= ${matPrice>/Bruto}>0 ? true: true }" class="sapUiNoMarginTop" />
+                    <ObjectNumber id="fragBruto" number="{ parts:[{path:'matPrice>/Bruto'},{path:'matPrice>/Unit'}], type: 'sap.ui.model.type.Currency', formatOptions: {showMeasure: false}}" unit="{matPrice>/Unit}" visible="{= ${matPrice>/Bruto}>0 ? true: true }" class="sapUiNoMarginTop" />
+                    <Label text="{i18n>fragPriceEtiqueta2}" visible="{= ${matPrice>/Neto}>0 ? true: true }" class="sapUiNoMarginTop" />
+                    <ObjectNumber number="{ parts:[{path:'matPrice>/Neto'},{path:'matPrice>/Unit'}], type: 'sap.ui.model.type.Currency', formatOptions: {showMeasure: false}}" unit="{matPrice>/Unit}" visible="{= ${matPrice>/Neto}>0 ? true: true }" class="sapUiNoMarginTop" />
+                    <Label text="{i18n>fragPriceEtiqueta3}" visible="{= ${matPrice>/Promo}>0 ? true: true }" class="sapUiNoMarginTop" />
+                    <ObjectNumber id="fragPromo" number="{ parts:[{path: 'matPrice>/Promo'},{path:'matPrice>/Unit'}], type: 'sap.ui.model.type.Currency', formatOptions: {showMeasure: false}}" unit="{matPrice>/Unit}" visible="{= ${matPrice>/NoPromo} === '' ? true : false }" class="sapUiNoMarginTop" />
+                    <Label text="{i18n>fragPriceEtiqueta4}" visible="{= ${matPrice>/Cond1}>0 ? true: false }" class="sapUiNoMarginTop" />
+                    <ObjectNumber number="{ parts:[{path:'matPrice>/Cond1'},{path:'matPrice>/Unit'}], type: 'sap.ui.model.type.Currency', formatOptions: {showMeasure: false}}" unit="{matPrice>/Unit}" visible="{= ${matPrice>/Cond1}>0 ? true: false }" class="sapUiNoMarginTop" />
+                    <Label text="{i18n>fragPriceEtiqueta5}" visible="{= ${matPrice>/Cond2}>0 ? true: false }" class="sapUiNoMarginTop" />
+                    <ObjectNumber number="{ parts:[{path:'matPrice>/Cond2'},{path:'matPrice>/Unit'}], type: 'sap.ui.model.type.Currency', formatOptions: {showMeasure: false}}" unit="{matPrice>/Unit}" visible="{= ${matPrice>/Cond2}>0 ? true: false }" class="sapUiNoMarginTop" />
+                    <Label text="{i18n>fragPriceEtiqueta6}" visible="{= ${matPrice>/Cond3}>0 ? true: false }" class="sapUiNoMarginTop" />
+                    <ObjectNumber number="{ parts:[{path:'matPrice>/Cond3'},{path:'matPrice>/Unit'}], type: 'sap.ui.model.type.Currency', formatOptions: {showMeasure: false}}" unit="{matPrice>/Unit}" visible="{= ${matPrice>/Cond3}>0 ? true: false }" class="sapUiNoMarginTop" />
+                </form:content>
+            </form:SimpleForm>
+            <CheckBox text="Desactivar Promociones" id="promoCheckbox" select="onFragPromoSelected" selected="{= ${matPrice>/NoPromo} === 'X' ? true: false}"/>
+        </content>
+        <endButton>
+            <Button icon="sap-icon://decline" class="sapUiTinyMarginBeginEnd" press="onHandlePricesClose"/>
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

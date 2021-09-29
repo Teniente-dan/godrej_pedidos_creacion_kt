@@ -1,0 +1,12 @@
+[
+    {
+        "clientid": 1234562345,
+        "desc": "cliente numero 1 Coca Cola",
+        "suc": "sucursal Roja de cliente Coca Cola"        
+        
+    },
+    {
+        "clientid": 9999999999,
+        "desc": "cliente numero 1 Pepsi",
+        "suc": "sucursal Azul de cliente Pepsi"     
+    } 

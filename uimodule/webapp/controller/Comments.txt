@@ -1,0 +1,100 @@
+Added onInit functions
+        attach default filter
+        // this.byId("mat").setFilterFunction(function (sTerm, oItem) {
+        // 	// A case-insensitive "string contains" style filter
+        // 	return oItem.getText().match( new RegExp(sTerm, "i"));
+        // });
+
+        Attach to model for request completed 
+        // this.getModel("clienteJSON").attachRequestCompleted(
+        //   function (oEvent, as, fdg) {
+        //     // execute code every time the model completes a request
+        //     if (oEvent.getParameter("url").includes("ClienteSet")) {
+        //       if (
+        //         oEvent.getParameter("response").statusCode >= 200 &&
+        //         oEvent.getParameter("response").statusCode < 300
+        //       ) {
+        //         this.actualizaDatosPedido("/clienteBusy", false);
+        //         console.log("cliente Loaded");
+        //       } else {
+        //         this.actualizaDatosPedido("/clienteBusy", false);
+        //         this.actualizaDatosPedido("/clienteEnabled", false);
+        //         console.log("cliente NOT Loaded");
+        //       }
+        //     }
+        //   }.bind(this)
+        // );        
+
+        Attach to control for binding changed        
+        // var binding = new sap.ui.model.Binding(oModelTabMat, "/", oModelTabMat.getContext("/"));
+        // binding.attachChange(function (oEvent, asd, ret, dsfg) {
+        //   console.log(oEvent);
+        //   //or anything else
+        // });        
+
+Backup, descarted code
+      validaMateriales: function () {
+        var pedido = this.getModel("pedido").getData();
+        var valError;
+        if (pedido.totalUnidad === 0)
+          return this.getResourceBundle().getText("pedidoVaceo");
+        // if (montoTotal === 0 || isNaN(montoTotal)) {
+        //   valError = this.getResourceBundle().getText("pedidoVaceo");
+        //   $(".onValMat").each((i, e) => {
+        //     var domRef = document.getElementById(e.id);
+        //     var oControl = $(domRef).control()[0];
+        //     var controlVal = oControl.getValue();
+        //     if (
+        //       controlVal === "" ||
+        //       controlVal === 0 ||
+        //       controlVal === "0" ||
+        //       isNaN(controlVal)
+        //     ) {
+        //       oControl.setValueState("Error");
+        //     }
+        //   });
+        //   return valError;
+        // }
+      },
+
+
+
+      // ****************************************************************
+      // onSearch: function (oEvt) {
+      //   this.manageBlink();
+      //   // add filter for search
+      //   var aFilters = [];
+      //   var sQuery = oEvt.getSource().getValue();
+      //   if (sQuery && sQuery.length > 0) {
+      //     var filter = new Filter(
+      //       "Matnr",
+      //       sap.ui.model.FilterOperator.Contains,
+      //       sQuery
+      //     );
+      //     aFilters.push(filter);
+      //     var filter = new Filter(
+      //       "Descripcion",
+      //       sap.ui.model.FilterOperator.Contains,
+      //       sQuery
+      //     );
+      //     aFilters.push(filter);
+      //   }
+      //   // update list binding
+      //   var oTable = this.byId("idFragTable");
+      //   var binding = oTable.getBinding("items");
+      //   binding.filter(aFilters, "Application");
+      // },
+
+      Wizard Step control        
+      // //si cambia un dato de la tabla y esta en otro paso se anula
+        // if (oController._wizard.getProgressStep() !== this.byId("seleccionMateriales")) {
+        // 	oController._wizard.discardProgress(this.byId("seleccionMateriales"));
+        // }
+        // var sTotal = oEvent.getParameter("total").toString();
+        // oController.getView().getModel("vista").setProperty("/totalMateriales", sTotal);
+        // //si hay elementos se valida el paso
+        // if (sTotal > 0) {
+        // 	oController.getView().byId("seleccionMateriales").setValidated(true);
+        // } else {
+        // 	oController.getView().byId("seleccionMateriales").setValidated(false);
+        // }

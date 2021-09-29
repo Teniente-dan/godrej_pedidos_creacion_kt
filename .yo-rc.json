@@ -1,0 +1,21 @@
+{
+  "generator-template-ui5-project": {
+    "projectname": "pedidoscrea",
+    "namespaceUI5": "godrej",
+    "platform": "Static webserver",
+    "viewtype": "XML",
+    "ui5libs": "Local resources (OpenUI5)",
+    "newdir": false,
+    "namespaceURI": "godrej",
+    "opa5pos": [
+      "Main"
+    ],
+    "opa5Journeys": [
+      "Main"
+    ],
+    "uimodules": [
+      "uimodule"
+    ],
+    "setupCompleted": true
+  }
+}

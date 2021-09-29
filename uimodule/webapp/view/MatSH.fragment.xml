@@ -1,0 +1,89 @@
+<core:FragmentDefinition xmlns="sap.ui.table"
+    xmlns:m="sap.m"
+    xmlns:core="sap.ui.core">
+    <m:Dialog id="MatSH" title="Selección de Material" icon="sap-icon://search" contentWidth="{= ${device>/system/phone}?'100%':'auto'}" afterOpen="fragInit">
+        <m:HBox id="blinkHbox" width="100%" justifyContent="End" class="sapUiNoContentPadding">
+            <m:Label id="blinkLabel" text="" class="blink sapUiSmallMarginEnd sapUiNoContentPadding"/>
+        </m:HBox>
+        <m:IconTabBar id="tab" class="fragIconTabBar" select="onFragIconSelected">
+            <m:items>
+                <m:IconTabFilter id="fragIconTabFilter1" icon="sap-icon://search">
+                    <m:Table id="idFragTable" items="{
+					path: 'matModel>/',
+					sorter: {
+						path: 'Descripcion',
+						descending: false
+					    },
+                    templateShareable:false 
+                    }">
+                        <m:headerToolbar>
+                            <m:OverflowToolbar id="fragOverflowT" style="Clear">
+                                <m:content>
+                                    <m:SearchField id="fragSearchField" width="100%" liveChange="onFiltrarMateriales" showSearchButton="false">
+                                        <m:layoutData>
+                                            <m:OverflowToolbarLayoutData id="fragSearchFieldLayout" priority="NeverOverflow" shrinkable="true"/>
+                                        </m:layoutData>
+                                    </m:SearchField>
+                                </m:content>
+                            </m:OverflowToolbar>
+                        </m:headerToolbar>
+                        <m:columns>
+                            <m:Column id="fragColumn1" hAlign="Initial" />
+                            <m:Column id="fragColumn4" hAlign="Initial" demandPopin="true" minScreenWidth="1000px" width="70%"/>
+                        </m:columns>
+                        <m:items>
+                            <m:ColumnListItem id="fragColumnListItem">
+                                <m:cells>
+                                    <m:HBox id="fragHbox1" alignItems="Center">
+                                        <core:Icon src="sap-icon://cancel" color="#bb0000" class="sapUiTinyMarginEnd" visible="{= ${matModel>Estatus} !== ''}"/>
+                                        <m:Label id="fragLabel1" text="{matModel>Matnr}" design="Bold" width="4rem" />
+                                        <m:Input id="fragMatInput" value="{matModel>Cantidad}" width="4rem" class="sapUiMediumMarginBegin valFragInput" change="fragMatInput" />
+                                        <m:Label id="fragLabel2" text="{matModel>UnidadVenta}" width="1.5rem" class="sapUiTinyMarginBegin"/>
+                                    </m:HBox>
+                                    <m:Label id="fragLabel3" text="{matModel>Descripcion}" wrapping="true" wrappingType="Hyphenated"/>
+                                </m:cells>
+                            </m:ColumnListItem>
+                        </m:items>
+                    </m:Table>
+                </m:IconTabFilter>
+                <m:IconTabFilter id="fragIconTabFilter2" icon="sap-icon://drill-down">
+                    <TreeTable id="Tree" rows="{path:'Nodes>/', parameters: {arrayNames:['children']}}" selectionMode="None" toggleOpenState="openNode">
+                        <columns>
+                            <Column id="0" autoResizable="true">
+                                <m:Label id="01" text="{i18n>FragMaterial}"/>
+                                <template>
+                                    <m:HBox alignItems="Center" class="materialTree">
+                                        <core:Icon src="sap-icon://cancel" color="#bb0000" class="sapUiTinyMarginEnd" visible="{= ${Nodes>NodeLevel} === 5 &amp;&amp; ${Nodes>Estatus} !== '' }"/>
+                                        <m:VBox class="jstfyCntr" alignContent="Center">
+                                            <m:Label text="{Nodes>Matnr}" class="sapUiTinyMarginEnd" design="Bold" />
+                                            <m:Label text="{Nodes>Descripcion}" class="sapUiTinyMarginEnd" visible="{= ${Nodes>NodeLevel} === 5 &amp;&amp; !${device>/system/phone}}"/>
+                                            <m:TextArea value="Mobil{Nodes>Descripcion}" class="sapUiTinyMarginEnd" visible="{= ${Nodes>NodeLevel} === 5 &amp;&amp; ${device>/system/phone}}" width="auto" editable="false" wrapping="Hard" rows="3"/>
+                                            <m:VBox class="jstfyLeft" alignContent="Center" visible="{= ${device>/system/phone}}">
+                                                <m:HBox alignItems="Center">
+                                                    <m:Input value="{Nodes>Cantidad}" visible="{= ${Nodes>NodeLevel} === 5 }" change="fragMatInput($event, 'tree')" class="valFragInput sapUiTinyMArginTopBottom" width="70px"/>
+                                                    <m:Label text="{Nodes>UnidadVenta}" class="sapUiTinyMarginBegin" visible="{= ${Nodes>NodeLevel} === 5 }"/>
+                                                </m:HBox>
+                                            </m:VBox>
+                                        </m:VBox>
+                                    </m:HBox>
+                                </template>
+                            </Column>
+                            <Column id="1" autoResizable="true" width="20%" visible="{= !${device>/system/phone}}">
+                                <m:Label id="11" />
+                                <template>
+                                    <m:HBox alignItems="Center">
+                                        <m:Input value="{Nodes>Cantidad}" visible="{= ${Nodes>NodeLevel} === 5 }" change="fragMatInput($event, 'tree')" class="valFragInput" width="5rem"/>
+                                        <m:Label text="{Nodes>UnidadVenta}" class="sapUiTinyMarginBegin" visible="{= ${Nodes>NodeLevel} === 5 }"/>
+                                    </m:HBox>
+                                </template>
+                            </Column>
+                        </columns>
+                    </TreeTable>
+                </m:IconTabFilter>
+            </m:items>
+        </m:IconTabBar>
+        <m:endButton>
+            <m:Button id="fragFooterBut1" text="{i18n>fragMatButTomar}" class="sapUiTinyMarginBeginEnd" press="onHandleValueHelpTomar"/>
+        </m:endButton>
+    </m:Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,17 @@
+[
+    {
+        "CondicionP": "condicion 1",
+        "Descripcion": "tipo de condicion de pago 1",
+        "CantidadDias": "10"
+    },
+    {
+        "CondicionP": "condicion 2",
+        "Descripcion": "tipo de condicion de pago 2",
+        "CantidadDias": "20"
+    },
+    {
+        "CondicionP": "condicion 3",
+        "Descripcion": "tipo de condicion de pago 3",
+        "CantidadDias": "30"
+    }  
+]

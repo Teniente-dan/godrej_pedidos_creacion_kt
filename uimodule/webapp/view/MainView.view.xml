@@ -1,0 +1,290 @@
+<mvc:View controllerName="godrej.pedidoscrea.controller.MainView" displayBlock="true"
+  xmlns="sap.m"
+  xmlns:unified="sap.ui.unified"
+  xmlns:form="sap.ui.layout.form"
+  xmlns:f="sap.f"
+  xmlns:core="sap.ui.core"
+  xmlns:layout="sap.ui.layout"
+  xmlns:uxap="sap.uxap"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns:godrej="godrej.pedidoscrea.control">
+  <Shell id="_IDGenShell1">
+    <App id="idAppControl">
+      <pages>
+        <uxap:ObjectPageLayout id="ObjectPage" showFooter="true">
+          <uxap:headerTitle>
+            <uxap:ObjectPageHeader id="Header" objectTitle="{i18n>HeaderTitle}" objectSubtitle="{i18n>HeaderSubtitle}" />
+          </uxap:headerTitle>
+          <uxap:headerContent>
+            <f:Avatar id="icono" src="sap-icon://product" backgroundColor="Random" displayShape="Square" displaySize="L"/>
+            <layout:VerticalLayout id="datos0" class="sapUiLargeMarginEnd">
+              <ObjectAttribute id="vendedor" title="{i18n>Vendedor}" text="{clienteLocal>/Vendedor}"/>
+              <ObjectAttribute id="organizacion" title="{i18n>OrgVentas}" text="{clienteLocal>/OrganizacionVentas}"/>
+            </layout:VerticalLayout>
+            <layout:VerticalLayout id="itemsHr" class="sapUiLargeMarginBeginEnd">
+              <Label id="itemsLHr" text="{i18n>TotalItems}" design="Bold" class="sapUiTinyMarginEnd"/>
+              <ObjectNumber id="totalItemsHr" emphasized="true" number="{pedido>/totalItems}" class="sapUiTinyMarginEnd" />
+            </layout:VerticalLayout>
+            <layout:VerticalLayout id="unitsHr" class="sapUiLargeMarginBeginEnd">
+              <Label id="totalLHr" text="{i18n>TotalUnit}" design="Bold" class="sapUiTinyMarginEnd"/>
+              <ObjectNumber id="totalUnitHr" emphasized="true" unit="{pedido>/unidadUnit}" number="{pedido>/totalUnidad}" class="sapUiTinyMarginEnd" />
+            </layout:VerticalLayout>
+            <layout:VerticalLayout id="totalHr" class="sapUiLargeMarginBeginEnd">
+              <Label id="totalMoneyLHr" text="{i18n>Total}" design="Bold" class="sapUiTinyMarginEnd"/>
+              <ObjectNumber id="totalMoneyHr" emphasized="true" unit="{pedido>/cantUnit}" number="{pedido>/totalCant}" state="Success"/>
+            </layout:VerticalLayout>
+          </uxap:headerContent>
+          <uxap:sections>
+            <!-- SECCIONES -->
+            <uxap:ObjectPageSection id="Section1" title="{i18n>DatosGral}">
+              <uxap:ObjectPageSubSection id="Section1Sub1">
+                <uxap:blocks>
+                  <VBox id="vboxForm">
+                    <VBox id="vboxTipoPedido" class="sapUiSmallMarginBegin">
+                      <Label id="tipopedido" text="{i18n>tipoPedidos}" design="Bold" required="true"/>
+                      <ComboBox id="tipopedidoMulti" width="{= ${device>/system/phone}?'100%':'35%'}" items="{clasePedidos>/}" class="valComboBox" selectionChange="onSelectionChangeComboBox($event, 'clasePedido', true)">
+                        <core:ListItem id="comboboxItem" key="{clasePedidos>ClaseP}" text="{clasePedidos>ClaseP} - {clasePedidos>Descripcion}" />
+                      </ComboBox>
+                    </VBox>
+                    <form:SimpleForm id="formDatoGral" editable="true" layout="ColumnLayout" labelSpanXL="4" labelSpanL="3" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="2" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="true">
+                      <form:content>
+                        <core:Title id="_IDGenTitle1" text="{i18n>infoCliente}"/>
+                        <Label id="clientSugLab0" text="{i18n>cliente}" required="true"/>
+                        <Input id="client" showSuggestion="true" suggestionItemSelected="suggestionItemSelected" suggestionRows="{ path: 'clienteAll>/', sorter: { path: 'Descripcion', descending: false }, templateShareable: false }" maxSuggestionWidth="80%" textFormatMode="ValueKey" class="valInput" liveChange="onInputLiveChange" selectedKey="{pedido>/cliente}" suggestionRowValidator="suggestionRowValidator" busy="{pedido>/clienteBusy}" enabled="{pedido>/clienteEnabled}" enableSuggestionsHighlighting="true" suggest="onHandleClientSuggest">
+                          <suggestionColumns>
+                            <Column id="clientSug1" hAlign="Begin" popinDisplay="Inline" demandPopin="true">
+                              <Label id="clientSugLab1" text="Clave"/>
+                            </Column>
+                            <Column id="clientSug2" hAlign="Center" popinDisplay="Inline" demandPopin="true" minScreenWidth="Tablet">
+                              <Label id="clientSugLab2" text="Descripción"/>
+                            </Column>
+                            <Column hAlign="Center" popinDisplay="Inline" demandPopin="true" minScreenWidth="Tablet">
+                              <Label text="Canal - Organizacion"/>
+                            </Column>
+                            <Column id="clientSug3" hAlign="End" popinDisplay="Inline" demandPopin="true" minScreenWidth="Tablet">
+                              <Label id="clientSugLab3" text="Sucursal"/>
+                            </Column>
+                          </suggestionColumns>
+                          <suggestionRows>
+                            <ColumnListItem id="clientSugItem">
+                              <cells>
+                                <Label id="clientSugLab4" text="{clienteAll>Kunnr}"/>
+                                <Label id="clientSugLab5" text="{clienteAll>Nombre}"/>
+                                <Label text="{clienteAll>CanalDistribucion} - {clienteAll>OrganizacionVenta}"/>
+                                <Label id="clientSugLab6" text="{clienteAll>Direccion}"/>
+                              </cells>
+                            </ColumnListItem>
+                          </suggestionRows>
+                        </Input>
+                        <Label id="_IDGenLabel1" text="{i18n>cuit}"/>
+                        <Text id="cuit" text="{clienteLocal>/Cuit}"/>
+                        <Label id="_IDGenLabel2" text="{i18n>Direccion}"/>
+                        <Text id="Direccion" text="{clienteLocal>/Direccion}"/>
+                        <Label id="_IDGenLabel3" text="{i18n>CondPago}" required="true"/>
+                        <ComboBox id="CondPago" width="auto" items="{ path: 'CondicionPago>/', length:500 }" class="valComboBox" selectionChange="onSelectionChangeComboBox($event, 'condPago', true)" busy="{pedido>/condBusy}" enabled="{pedido>/condEnabled}">
+                          <core:ListItem id="comboboxItemCondPago" key="{CondicionPago>CondicionP}" text="{CondicionPago>CondicionP} - {CondicionPago>Descripcion}" />
+                        </ComboBox>
+                        <Label id="_IDGenLabel4" text="{i18n>FechaPedido}" required="true"/>
+                        <DatePicker id="FechaPedido" value="{pedido>/fechaPreferente}" class="valDate" change="onInputLiveChange($event, 'fecha')" enabled="{= ${pedido>/fechaEnabled} &amp;&amp; !${pedido>/noDate} }" displayFormat="long"/>
+                        <Label id="_IDGenLabel5" text="{i18n>OrdenCompra}" required="true"/>
+                        <Input id="OrdenCompra" value="{pedido>/ordenCompra}" class="valInput" liveChange="onInputLiveChange"/>
+                      </form:content>
+                    </form:SimpleForm>
+                  </VBox>
+                </uxap:blocks>
+              </uxap:ObjectPageSubSection>
+            </uxap:ObjectPageSection>
+            <!-- MATERIALES -->
+            <uxap:ObjectPageSection id="Section2" title="{i18n>SelMat}">
+              <uxap:ObjectPageSubSection id="Section2Sub1">
+                <uxap:blocks>
+                  <VBox id="vboxLista" width="auto">
+                    <Table id="Postable" items="{materiales>/}" mode="Delete" width="{= ${device>/system/phone}?'105%':'100%'}" updateFinished="onUpdateFinishedTablaMateriales" delete="borrarMaterial" blocked="{pedido>/matBlocked}" busy="{pedido>/matBusy}">
+                      <headerToolbar>
+                        <OverflowToolbar id="overToolbar">
+                          <content>
+                            <Title id="listTitle" text="{pedido>/totalPosiciones}"/>
+                            <ToolbarSpacer id="space1"/>
+                            <Label id="cargaXLSX" text="{i18n>cargandoXLSX}" class="blink" visible="false"/>
+                            <unified:FileUploader id="Add1" buttonText="{i18n>XLSX}" iconOnly="{= ${device>/system/phone}?true:false}" buttonOnly="true" icon="sap-icon://excel-attachment" tooltip="{i18n>XLSX}" uploadComplete="onHandleUploadComplete" uploadOnChange="true" enabled="true" fileType="xlsx" uploadStart="onHandleUploadStart" change="onHandleUploadStart" sameFilenameAllowed="true"/>
+                            <Button id="Down1" text="{= ${device>/system/phone}?'':${i18n>XLSXdown}}" icon="sap-icon://download" tooltip="{i18n>XLSXdown}" press="onDownTemplate"/>
+                          </content>
+                        </OverflowToolbar>
+                      </headerToolbar>
+                      <infoToolbar>
+                        <OverflowToolbar id="extraInfoTool">
+                          <Label id="extrainfo" text="{i18n>extraInfo}"/>
+                        </OverflowToolbar>
+                      </infoToolbar>
+                      <columns>
+                        <Column id="Col0" width="3rem"/>
+                        <Column id="Col1">
+                          <Text id="Col1Text" text="{i18n>NoMat}" width="auto" />
+                        </Column>
+                        <Column id="Col2" demandPopin="true" width="auto" minScreenWidth="tablet">
+                          <Text id="Col2Text" text="{i18n>Desc}" />
+                        </Column>
+                        <Column id="Col5" demandPopin="true" minScreenWidth="1000px">
+                          <Text id="Col5Text" text="{i18n>Cant}" width="auto" />
+                        </Column>
+                        <Column demandPopin="true" minScreenWidth="1000px" width="5.5rem">
+                          <Text text="{i18n>CantBon}" wrapping="true" />
+                        </Column>
+                        <Column demandPopin="true" minScreenWidth="1000px" width="5.5rem">
+                          <Text text="{i18n>CantNoBon}" />
+                        </Column>
+                        <Column id="Col6" demandPopin="true" minScreenWidth="1000px" hAlign="Center" width="8rem">
+                          <Text id="Col6Text" text="{i18n>Total}" width="auto"/>
+                        </Column>
+                      </columns>
+                      <items>
+                        <ColumnListItem id="template">
+                          <cells>
+                            <core:Icon id="_IDGenIcon1" backgroundColor="" color="" decorative="true" hoverBackgroundColor="" size="1.5rem" src="sap-icon://add-product" />
+                            <Input id="mat" showValueHelp="true" valueHelpRequest="onHelpMat" suggest="handleMatSuggest" showSuggestion="true" suggestionRows="{ path: 'matModel>/', sorter: { path: 'Descripcion', descending: false }, templateShareable: false }" maxSuggestionWidth="80%" suggestionItemSelected="ingresoInput" class="onValMat" value="{materiales>Matnr}" liveChange="onMatLiveChange" autocomplete="false">
+                              <suggestionColumns>
+                                <Column id="matSug1" hAlign="Begin" popinDisplay="Inline" demandPopin="true" width="5rem">
+                                  <Label id="matSugLab1" text="{i18n>sugIDProducto}"/>
+                                </Column>
+                                <Column id="matSug2" hAlign="Initial" popinDisplay="Inline" demandPopin="true" minScreenWidth="Tablet">
+                                  <Label id="matSugLab2" text="{i18n>sugDescripcion}"/>
+                                </Column>
+                              </suggestionColumns>
+                              <suggestionRows>
+                                <ColumnListItem id="_IDGenColumnListItem1" class="colorSugRow">
+                                  <cells>
+                                    <HBox id="_IDGenHBox1" alignItems="Center">
+                                      <core:Icon id="_IDGenIcon2" src="sap-icon://cancel" color="#bb0000" class="sapUiTinyMarginEnd" visible="{= ${matModel>Estatus} !== '' }"/>
+                                      <Label id="_IDGenLabel6" text="{matModel>Matnr}"/>
+                                    </HBox>
+                                    <Label id="_IDGenLabel7" text="{matModel>Descripcion}" wrapping="true"/>
+                                  </cells>
+                                </ColumnListItem>
+                              </suggestionRows>
+                            </Input>
+                            <Text id="desc" text="{materiales>Descripcion}"/>
+                            <HBox id="hboxCant" alignItems="Center" alignContent="Start">
+                              <items>
+                                <Input id="CantInput" liveChange="estadoImpCantidad" value="{materiales>Cantidad}" submit="onMaterialCantidadChange" class="onValMat" width="5rem"/>
+                                <VBox class="sapUiTinyMarginEnd" width="4.5rem">
+                                  <Label id="CantUnit" text="{materiales>Meins}" class="sapUiTinyMarginBegin"/>
+                                  <Label id="_IDGenLabel8" text="{materiales>text_meinh}" class="sapUiTinyMarginBegin smallLetter" wrapping="true"/>
+                                </VBox>
+                              </items>
+                            </HBox>
+                            <ObjectNumber id="bon" unit="{= ${materiales>Meins} === '' ? ${i18n>currPlaceHolder} : ${materiales>Meins} }" number="{materiales>Bon}"/>
+                            <ObjectNumber id="nobon" unit="{= ${materiales>Meins} === '' ? ${i18n>currPlaceHolder} : ${materiales>Meins} }" number="{materiales>NoBon}"/>
+                            <godrej:EventObjNumber id="total" unit="{= ${materiales>Moneda} === '' ? ${i18n>currPlaceHolder} : ${materiales>Moneda} }" press="onHandlePrice" class="valTotal"/>
+                          </cells>
+                        </ColumnListItem>
+                      </items>
+                    </Table>
+                    <HBox id="hboxListaButtons" justifyContent="SpaceAround" class="sapUiTinyMarginTopBottom" visible="true">
+                      <HBox id="hboxButtons" wrap="Wrap">
+                        <Button id="Add" icon="sap-icon://add" press="agregarMaterial" enabled="{= !${pedido>/matBlocked}}"/>
+                      </HBox>
+                    </HBox>
+                  </VBox>
+                </uxap:blocks>
+              </uxap:ObjectPageSubSection>
+            </uxap:ObjectPageSection>
+            <!-- DATOS ADICIONALES -->
+            <uxap:ObjectPageSection id="Section3" title="{i18n>DatosAdicionales}">
+              <uxap:ObjectPageSubSection id="Section3Sub1">
+                <form:Form id="formDatoAdicional" editable="true">
+                  <form:layout>
+                    <form:ColumnLayout id="colAd" columnsM="2" columnsL="3" columnsXL="4" />
+                  </form:layout>
+                  <form:formContainers>
+                    <form:FormContainer id="contAdicional">
+                      <form:formElements>
+                        <form:FormElement id="flabela" label="{i18n>telefono}">
+                          <form:fields>
+                            <Text id="telefono" text="{clienteLocal>/Telefono}" />
+                          </form:fields>
+                        </form:FormElement>
+                        <form:FormElement id="flabela1" label="{i18n>mail}">
+                          <form:fields>
+                            <Text id="mail" text="{clienteLocal>/Mail}" />
+                          </form:fields>
+                        </form:FormElement>
+                        <form:FormElement id="flabela2" label="{i18n>canalDist}">
+                          <form:fields>
+                            <Text id="canalDibst" text="{clienteLocal>/CanalDistribucion} - {clienteLocal>/CanalDistribucionDesc}" />
+                          </form:fields>
+                        </form:FormElement>
+                        <form:FormElement id="flabela3" label="{i18n>OficinaVentas}">
+                          <form:fields>
+                            <Text id="OficinaVentas" text="{clienteLocal>/OficinaVentas} - {clienteLocal>/OficinaVentasDesc}" />
+                          </form:fields>
+                        </form:FormElement>
+                        <form:FormElement id="flabela4" label="{i18n>SubCanal}">
+                          <form:fields>
+                            <Text id="SubCanal" text="{clienteLocal>/SubCanal} - {clienteLocal>/SubCanalDesc}" />
+                          </form:fields>
+                        </form:FormElement>
+                      </form:formElements>
+                      <form:formElements>
+                        <form:FormElement id="flabela5" label="{i18n>Vendedor}">
+                          <form:fields>
+                            <Text id="Vendedor" text="{clienteLocal>/Vendedor} - {clienteLocal>/VendedorDesc}" />
+                          </form:fields>
+                        </form:FormElement>
+                      </form:formElements>
+                      <form:formElements>
+                        <form:FormElement id="flabela6" label="{i18n>Pagador}">
+                          <form:fields>
+                            <Text id="Pagador" text="{clienteLocal>/Pagador}" />
+                          </form:fields>
+                        </form:FormElement>
+                      </form:formElements>
+                      <form:formElements>
+                        <form:FormElement id="flabela7" label="{i18n>DestFatura}">
+                          <form:fields>
+                            <Text id="DestFatura" text="{clienteLocal>/DestinatarioFactura}" />
+                          </form:fields>
+                        </form:FormElement>
+                      </form:formElements>
+                      <form:formElements>
+                        <form:FormElement id="flabela8" label="{i18n>DestMerc}">
+                          <form:fields>
+                            <Text id="DestMerc" text="{clienteLocal>/DestinatarioMercaderia}" />
+                          </form:fields>
+                        </form:FormElement>
+                      </form:formElements>
+                    </form:FormContainer>
+                  </form:formContainers>
+                </form:Form>
+              </uxap:ObjectPageSubSection>
+            </uxap:ObjectPageSection>
+          </uxap:sections>
+          <uxap:footer>
+            <OverflowToolbar id="footerBar" design="Transparent" height="103%">
+              <content>
+                <ToolbarSpacer id="spacer0" visible="{= !${device>/system/phone}}"/>
+                <HBox id="centerFootL" alignItems="Start">
+                  <Label id="itemsL" text="{i18n>TotalItems}" design="Bold" class="sapUiTinyMarginEnd" visible="{= !${device>/system/phone}}"/>
+                  <ObjectNumber id="totalItems" emphasized="true" number="{pedido>/totalItems}" class="sapUiSmallMarginEnd totalFont"/>
+                  <Label id="totalL" text="{i18n>Total}" design="Bold" class="sapUiTinyMarginEnd" visible="{= !${device>/system/phone}}"/>
+                  <VBox id="totalfootM" visible="{= ${device>/system/phone}}">
+                    <ObjectNumber id="totalUnit" emphasized="true" unit="{pedido>/unidadUnit}" number="{pedido>/totalUnidad}" class="sapUiTinyMarginEnd totalFont"/>
+                    <ObjectNumber id="totalMoney" emphasized="true" unit="{pedido>/cantUnit}" number="{pedido>/totalCant}" class="totalFont" state="Success"/>
+                  </VBox>
+                  <HBox id="totalfootD" visible="{= !${device>/system/phone}}">
+                    <ObjectNumber id="totalUnitD" emphasized="true" unit="{pedido>/unidadUnit}" number="{pedido>/totalUnidad}" class="sapUiTinyMarginEnd totalFont"/>
+                    <ObjectNumber id="totalMoneyD" emphasized="true" unit="{pedido>/cantUnit}" number="{pedido>/totalCant}" class="totalFont" state="Success"/>
+                  </HBox>
+                </HBox>
+                <ToolbarSpacer id="spacer"/>
+                <Button id="saveBut" type="Accept" text="{i18n>grabar}" visible="{= !${device>/system/phone}}" press="onGrabar"/>
+                <Button id="cancelBut" type="Reject" text="{i18n>cancelar}" visible="{= !${device>/system/phone}}" press="onCancelar"/>
+                <Button id="saveButI" type="Accept" icon="sap-icon://save" visible="{= ${device>/system/phone}}" press="onGrabar"/>
+                <Button id="cancelButI" type="Reject" icon="sap-icon://sys-cancel" visible="{= ${device>/system/phone}}" press="onCancelar"/>
+              </content>
+            </OverflowToolbar>
+          </uxap:footer>
+        </uxap:ObjectPageLayout>
+      </pages>
+    </App>
+  </Shell>
+</mvc:View>
